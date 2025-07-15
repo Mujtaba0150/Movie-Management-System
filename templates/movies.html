@@ -1,0 +1,136 @@
+{% extends "navbar.html" %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/filters.js') }}" defer></script>
+<script src="{{ url_for('static', filename='js/movies.js') }}" defer></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/movies.css') }}">
+{% endblock %}
+
+{% block body %}
+<form action="{{ url_for('search') }}" method="POST" id="combinedForm">
+    <div class="filters">
+        <div class="filter" onclick="toggleDropdown('genreDropdown')">
+            <label for="genreFilter">Genres <span class="arrow">&#9660;</span></label>
+            <div id="genreDropdown" class="dropdown">
+                {% for genre in genres %}
+                <label><input type="checkbox" name="genres" value="{{ genre.genreId }}"> {{ genre.name }}</label>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="filter" onclick="toggleDropdown('actorDropdown')">
+            <label for="actorFilter">Actors <span class="arrow">&#9660;</span></label>
+            <div id="actorDropdown" class="dropdown">
+                {% for actor in actors %}
+                <label><input type="checkbox" name="actors" value="{{ actor.actorId }}"> {{ actor.name }}</label>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="filter" onclick="toggleDropdown('languageDropdown')">
+            <label for="languageFilter">Languages <span class="arrow">&#9660;</span></label>
+            <div id="languageDropdown" class="dropdown">
+                {% for lang in languages %}
+                <label><input type="checkbox" name="languages" value="{{ lang.language }}"> {{ lang.language
+                    }}</label>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="filter" onclick="toggleDropdown('ratingDropdown')">
+            <label for="ratingFilter">Ratings <span class="arrow">&#9660;</span></label>
+            <div id="ratingDropdown" class="dropdown">
+                {% for rating in range(0, 6) %}
+                <label><input type="radio" name="ratingMax" value="{{ rating }}"> {{ rating }} stars</label>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" name="query" placeholder="Search for movies">
+        </div>
+        <button type="submit"><strong> Apply Filters and Search</strong></button>
+    </div>
+</form>
+
+<div class="latest-movies">
+    <div class="movie-grid">
+        <div class="movie-grid">
+            {% for movie in movies %}
+            <div class="movie-wrapper" onmouseenter="positionOverlay(this)" onmouseleave="hideOverlay(this)">
+                <div class="movie-card">
+                    <div class="movie-poster">
+                        <img src="{{ url_for('static', filename=movie.imageFilename) }}" alt="{{ movie.title }}">
+                    </div>
+                    <div class="movie-info">
+                        <span class="movie-year">{{ movie.releaseYear }}</span>
+                        <span class="movie-type">{{ movie.genreName }}</span>
+                        <span class="movie-duration">{{ movie.averageRating | default('0', true)}}/5</span>
+                    </div>
+                    <span class="movie-title">{{ movie.title }}</span>
+                </div>
+
+                <div class="movie-overlay">
+                    <h4>{{ movie.title }}</h4>
+                    <p><strong>Language:</strong> {{ movie.language }}</p>
+                    <p><strong>Genres:</strong> {{ movie.genreName }}</p>
+                    <p><strong>Rating:</strong> {{ movie.averageRating }}</p>
+                    <p><strong>Release Year:</strong> {{ movie.releaseYear }}</p>
+                    <p><strong>Summary:</strong> {{ movie.description }}</p>
+                    {% if 'userId' in session %}
+                    <button type="button" class="watchlist-btn"
+                        onclick="openWatchlistOverlay('{{ movie.movieId }}')">Add to
+                        Watchlist</button>
+                    <button type="button" class="rate-btn"
+                        onclick="openRatingOverlay('{{ movie.movieId }}')">Rate</button>
+                    {% else %}
+                    <span style="color: gray; font-style: italic;">Login to add to watchlist and rate</span>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+<div id="watchlistOverlay" class="overlay" style="display: none;">
+    <div class="overlay-content">
+        <h3>Select a Watchlist</h3>
+        <ul id="watchlistList"></ul>
+
+        <div class="new-watchlist-form">
+            <input type="text" id="newWatchlistName" placeholder="New Watchlist Name">
+            <button onclick="createNewWatchlist()">Make Watchlist</button>
+        </div>
+
+        <div class="overlay-actions">
+            <button onclick="closeWatchlistOverlay()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<div id="ratingOverlay" class="overlay" style="display: none;">
+    <div class="overlay-content">
+        <h3>Rate This Movie</h3>
+        <div id="ratingButtons">
+            <button onclick="selectRating(1)">1</button>
+            <button onclick="selectRating(2)">2</button>
+            <button onclick="selectRating(3)">3</button>
+            <button onclick="selectRating(4)">4</button>
+            <button onclick="selectRating(5)">5</button>
+        </div>
+        <div class="overlay-actions">
+            <button onclick="submitRating()">Submit</button>
+            <button onclick="closeRatingOverlay()">Cancel</button>
+        </div>
+    </div>
+</div>
+<div class="pagination">
+    {% if page > 1 %}
+    <a href="{{ url_for('getPage', page=page-1) }}">&laquo; Previous</a>
+    {% endif %}
+    <span>Page {{ page }}</span>
+    {% if page < totalPages %} <a href="{{ url_for('getPage', page=page+1) }}">Next
+        &raquo;</a>
+        {% endif %}
+</div>
+{% endblock %}

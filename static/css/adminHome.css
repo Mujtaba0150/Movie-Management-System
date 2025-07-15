@@ -1,0 +1,347 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f5;
+}
+
+.brand {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    margin-left: 150px;
+    border-radius: 4px;
+}
+
+.search-bar input {
+    padding: 5px;
+    width: 190px;
+    border-radius: 4px;
+    border: none;
+}
+
+.search-bar button {
+    padding: 6px 10px;
+    margin-left: 7px;
+    border: none;
+    background-color: #2980b9;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#combinedForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.filters {
+    background-color: #fff;
+    padding: 15px 20px;
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.filters form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+}
+
+.filters label {
+    font-weight: bold;
+}
+
+.filters select {
+    padding: 5px;
+    min-width: 150px;
+    max-height: 1.5rem;
+    border-radius: 4px;
+    color: black;
+    border: 1px solid #ccc;
+}
+
+.filters button {
+    padding: 6px 12px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.movies-table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.movies-table th,
+.movies-table td {
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+.movies-table th {
+    background-color: #2980b9;
+    color: white;
+}
+
+.movies-table tr:hover {
+    background-color: #f2f2f2;
+}
+
+.watchlist-btn {
+    padding: 6px 10px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.pagination {
+    text-align: center;
+    margin: 20px;
+}
+
+.pagination a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #2980b9;
+    font-weight: bold;
+}
+
+.pagination span {
+    font-weight: bold;
+}
+
+.filters {
+    margin-top: 10px;
+}
+
+.filter {
+    position: relative;
+    margin-right: 30px;
+    cursor: pointer;
+    display: inline-block;
+    user-select: none;
+}
+
+.filter label {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.arrow {
+    font-size: 14px;
+    margin-left: 5px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 28px;
+    left: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    width: 180px;
+}
+
+.dropdown label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: normal;
+    color: black;
+    cursor: pointer;
+}
+
+.filters button {
+    vertical-align: bottom;
+    margin-left: 20px;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.overlay-content {
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    width: 350px;
+    text-align: center;
+}
+
+.overlay-content h3 {
+    margin-top: 0;
+}
+
+#watchlistList {
+    list-style: none;
+    padding: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+}
+
+#watchlistList li {
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#watchlistList li:hover {
+    background-color: #f1f1f1;
+}
+
+.new-watchlist-form {
+    margin-top: 10px;
+}
+
+.new-watchlist-form input {
+    padding: 6px;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 60%;
+}
+
+.new-watchlist-form button {
+    padding: 6px 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.overlay-actions button {
+    margin-top: 15px;
+    padding: 6px 10px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.desc-container {
+    position: relative;
+    max-height: 3.6em;
+    max-width: 2em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.short-desc {
+    display: inline;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 10em;
+    text-overflow: ellipsis;
+    display: block;
+}
+
+.full-desc {
+    display: none;
+    white-space: normal;
+}
+
+.toggle-desc-btn {
+    background: none;
+    border: none;
+    color: blue;
+    cursor: pointer;
+    padding: 0;
+    font-size: 0.9em;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.overlay-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.overlay-content h3 {
+    margin-top: 0;
+}
+
+.overlay-content select {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+.overlay-content input[type="text"] {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.checkbox-list {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.checkbox-item {
+    margin-bottom: 5px;
+}
+
+.checkbox-item label {
+    margin-left: 8px;
+}

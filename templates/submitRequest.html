@@ -1,0 +1,50 @@
+{% extends "navbar.html" %}
+
+{% block scripts %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/request.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="request-container">
+    <h2>Submit a Movie Request</h2>
+    <form action="{{ url_for('submitRequest') }}" method="POST" class="request-form">
+
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" required>
+
+        <label for="description">Description</label>
+        <textarea id="description" name="description" rows="5" required></textarea>
+
+        <label for="releaseYear">Release Year</label>
+        <input type="number" id="releaseYear" name="releaseYear" min="1880" max="2099" value="2025" required>
+
+        <label for="directorInput">Director</label>
+        <input list="directorOptions" id="directorInput" name="directorName" placeholder="Search or add director"
+            required>
+        <datalist id="directorOptions">
+            {% for director in directors %}
+            <option value="{{ director.name }}"></option>
+            {% endfor %}
+        </datalist>
+
+        <label for="languageInput">Language</label>
+        <input list="languageOptions" id="languageInput" name="language" placeholder="Search or add language" required>
+        <datalist id="languageOptions">
+            {% for lang in languages %}
+            <option value="{{ lang.language }}"></option>
+            {% endfor %}
+        </datalist>
+
+        <label for="genreInput">Genre</label>
+        <input list="genreOptions" id="genreInput" name="genre" placeholder="Search or add genre" required>
+        <datalist id="genreOptions">
+            {% for genre in genres %}
+            <option value="{{ genre.name }}"></option>
+            {% endfor %}
+        </datalist>
+
+
+        <button type="submit">Submit Request</button>
+    </form>
+</div>
+{% endblock %}

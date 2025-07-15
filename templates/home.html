@@ -1,0 +1,197 @@
+{% extends "navbar.html" %}
+
+{% block scripts %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+{% endblock %}
+
+{% block body %}
+<header>
+    <h1>Welcome to MyMovieDB</h1>
+    <p>Your hub for movie stats, reviews, and user activity.</p>
+</header>
+
+<!-- Statistics Summary -->
+<section class="stats-section">
+    <h2 class="heading">Quick Stats</h2>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>Total Movies</h3>
+            <div class="stat-value">{{ movies_overview.total_movies }}</div>
+        </div>
+        <div class="stat-card">
+            <h3>Average Movie Rating</h3>
+            <div class="stat-value">{{ movies_overview.avg_rating }}</div>
+        </div>
+        <div class="stat-card">
+            <h3>Total Users</h3>
+            <div class="stat-value">{{ user_activity.total_users }}</div>
+        </div>
+        <div class="stat-card">
+            <h3>Total Watchlists</h3>
+            <div class="stat-value">{{ user_activity.total_watchlists }}</div>
+        </div>
+        <div class="stat-card">
+            <h3>Total Requests</h3>
+            <div class="stat-value">{{ request_stats.total_requests }}</div>
+        </div>
+    </div>
+</section>
+
+<!-- Top Rated Movies -->
+<section class="top-movies">
+    <h2 class="heading">Top Rated Movies</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for movie in movies_overview.top_rated %}
+            <tr>
+                <td>{{ movie.title }}</td>
+                <td>{{ movie.averageRating }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="2">No top rated movies available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+<!-- Most Reviewed Movies -->
+<section class="top-movies">
+    <h2 class="heading">Most Reviewed Movies</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Review Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for movie in movies_overview.most_reviewed %}
+            <tr>
+                <td>{{ movie.title }}</td>
+                <td>{{ movie.review_count }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="2">No reviewed movies found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+<!-- Movies by Year -->
+<section class="top-movies">
+    <h2 class="heading">Movies Released by Year</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Year</th>
+                <th>Movies Released</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in movies_overview.movies_by_year %}
+            <tr>
+                <td>{{ item.releaseYear }}</td>
+                <td>{{ item.count }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="2">No data available for movies by year.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+<!-- Genre Stats -->
+<section class="genres-section">
+    <h2 class="heading">Movies by Genre</h2>
+    <div class="genre-chart">
+        {% for genre in genres_stats.genres_stats %}
+        <div class="genre-item">
+            <span class="genre-name">{{ genre.name }}</span>
+            <span class="genre-count">{{ genre.movie_count }}</span>
+        </div>
+        {% else %}
+        <div class="genre-item">
+            <span class="genre-name">No genre data available.</span>
+        </div>
+        {% endfor %}
+    </div>
+
+    <h3 class="heading">Average Rating by Genre</h3>
+    <div class="genre-chart">
+        {% for genre in genres_stats.genres_ratings %}
+        <div class="genre-item">
+            <span class="genre-name">{{ genre.name }}</span>
+            <span class="genre-count">{{ genre.avg_rating | round(2) }}</span>
+        </div>
+        {% else %}
+        <div class="genre-item">
+            <span class="genre-name">No average ratings available.</span>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Watchlist Stats -->
+<section class="top-movies">
+    <h2 class="heading">Popular Watchlists</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Watchlist</th>
+                <th>Movie Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for wl in user_activity.popular_watchlists %}
+            <tr>
+                <td>{{ wl.name }}</td>
+                <td>{{ wl.movie_count }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="2">No popular watchlists to display.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+<!-- Movie Requests -->
+<section class="top-movies">
+    <h2 class="heading">Recent Movie Requests</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Submitted At</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for req in request_stats.recent_requests %}
+            <tr>
+                <td>{{ req.title }}</td>
+                <td>{{ req.status }}</td>
+                <td>{{ req.submittedAt }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="3">No recent movie requests.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}

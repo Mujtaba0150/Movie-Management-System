@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyMovieDB</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/adminHome.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/adminNavbar.css') }}">
+    <script src="{{ url_for('static', filename='js/adminNavbar.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/adminHome.js') }}"></script>
+
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="brand">MyMovieDB</div>
+        {% if 'userId' in session %}
+        <div class="profile-menu">
+            <img src="{{ url_for('static', filename='img/pfp.png') }}" alt="Profile" class="pfp"
+                onclick="toggleProfileDropdown()">
+            <div id="profileDropdown" class="dropdown-content" style="display: none;">
+                <button type="button" class="dropdown-btn" onclick="logoutUser(this)"
+                    data-logout-url="{{ url_for('logout') }}">Logout</button>
+            </div>
+        </div>
+        {% else %}
+        <a href="{{ url_for('adminSignIn') }}" class="login-btn">Login</a>
+        {% endif %}
+
+    </div>
+    </div>
+
+    <table class="movies-table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Year</th>
+                <th>Language</th>
+                <th>Genre</th>
+                <th>Submission Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for request in requests %}
+            <tr>
+                <td>{{ request.title }}</td>
+                <td>
+                    <div class="desc-container">
+                        <span class="short-desc">{{ request.description }}</span>
+                        <span class="full-desc" style="display: none;">{{ request.description }}</span>
+                        <button class="toggle-desc-btn" onclick="toggleDescription(this)">more</button>
+                    </div>
+                </td>
+
+
+                <td>{{ request.releaseYear }}</td>
+                <td>{{ request.language }}</td>
+                <td>{{ request.genreName }}</td>
+                <td>{{ request.submittedAt }}</td>
+                <td>
+                    <button class="approve-btn" onclick="approveRequest(this)"
+                        data-request-id="{{ request.requestId }}">Approve</button>
+                    <button class="edit-btn" onclick="updateRequest(this)"
+                        data-request-id="{{ request.requestId }}">Edit</button>
+                    <button class="reject-btn" onclick="rejectRequest(this)"
+                        data-request-id="{{ request.requestId }}">Reject</button>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        {% if page > 1 %}
+        <a href="{{ url_for('getPage', page=page-1) }}">&laquo; Previous</a>
+        {% endif %}
+        <span>Page {{ page }}</span>
+        {% if page < totalPages %} <a href="{{ url_for('getPage', page=page+1) }}">Next
+            &raquo;</a>
+            {% endif %}
+    </div>
+    <div id="actorOverlay" class="overlay" style="display: none;">
+        <div class="overlay-content">
+            <h3>Select Actors</h3>
+            <form id="actorForm">
+                <label>Select existing actors:</label>
+                <div class="checkbox-list" id="existingActorsList">
+                    {% for actor in actors %}
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="actor{{ actor.actorId }}" name="existingActor"
+                            value="{{ actor.actorId }}">
+                        <label for="actor{{ actor.actorId }}">{{ actor.name }}</label>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <label for="newActors">Add new actors (comma separated):</label>
+                <input type="text" id="newActors" placeholder="e.g., John Doe, Jane Smith">
+                <input type="hidden" id="approveRequestId">
+                <form id="actorForm" enctype="multipart/form-data">
+                    <label for="moviePoster">Upload Poster:</label>
+                    <input type="file" id="moviePoster" name="moviePoster" accept="image/*" required>
+
+                    <div class="modal-buttons">
+                        <button type="button" onclick="submitActorSelection()">Confirm</button>
+                        <button type="button" onclick="closeActorOverlay()">Cancel</button>
+                    </div>
+                </form>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>

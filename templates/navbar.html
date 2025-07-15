@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyMovieDB</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <script src="{{ url_for('static', filename='js/navbar.js') }}" defer></script>
+
+    {% block scripts %}
+    {% endblock %}
+</head>
+
+<body>
+    <form id="logoutForm" action="{{ url_for('logout') }}" method="POST" style="display: none;"></form>
+    <div class="navbar">
+        <div class="brand">MyMovieDB</div>
+        <div class="nav-links">
+            <div><a href="{{ url_for('home') }}" class="home-btn">Home</a></div>
+            <div><a href="{{ url_for('movies') }}" class="movies-btn">Movies</a></div>
+            <div><a href="{{ url_for('watchlists') }}" class="watchlists-btn">Watchlists</a></div>
+            <div><a href="{{ url_for('submitRequest') }}" class="submit-request-btn">Submit Movie Request</a></div>
+            {% if 'userId' in session %}
+            <div class="profile-menu">
+                <img src="{{ url_for('static', filename='img/pfp.png') }}" alt="Profile" class="pfp"
+                    onclick="toggleProfileDropdown()">
+                <div id="profileDropdown" class="dropdown-content" style="display: none;">
+                    <button type="button" class="dropdown-btn" onclick="logoutUser(this)"
+                        data-logout-url="{{ url_for('logout') }}">Logout</button>
+                </div>
+            </div>
+            {% else %}
+            <a href="{{ url_for('signIn') }}" class="login-btn">Login</a>
+            {% endif %}
+
+        </div>
+    </div>
+    {% block body %}
+    {% endblock %}
+</body>

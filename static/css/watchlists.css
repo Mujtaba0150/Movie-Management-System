@@ -1,0 +1,141 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #181818;
+}
+
+.container {
+    display: flex;
+    height: calc(100vh - 50px);
+}
+
+.watchlist-sidebar {
+    width: 250px;
+    background-color: #181818;
+    border-right: 1px solid #181818;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.watchlist-sidebar h2 {
+    margin-top: 0;
+    color: white;
+    margin-bottom: 15px;
+}
+
+#watchlistList {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.watchlist-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 4px;
+    color: #2c3e50;
+    margin-bottom: 5px;
+    transition: background-color 0.2s;
+}
+
+.watchlist-item:hover,
+.watchlist-item.active {
+    background-color: #3498db;
+    color: white;
+}
+
+.watchlist-movies {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.watchlist-movies h2 {
+    color: white;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.watchlist-group {
+    margin-bottom: 40px;
+}
+
+.watchlist-group h3 {
+    margin-bottom: 10px;
+    color: #2980b9;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+thead {
+    background-color: #2980b9;
+    color: white;
+}
+
+th,
+td {
+    padding: 12px 15px;
+    border: 1px solid #121212;
+    text-align: left;
+}
+
+td {
+    background-color: #141414;
+}
+
+.movie-row:hover {
+    background-color: #f5f8fa;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .watchlist-sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .watchlist-movies {
+        padding: 10px;
+    }
+}
+
+.ellipsis {
+    float: right;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.watchlist-menu {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 5px;
+    z-index: 1000;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.watchlist-menu button {
+    display: block;
+    width: 100%;
+    padding: 5px 10px;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+}
+
+.watchlist-menu button:hover {
+    background-color: #f0f0f0;
+}

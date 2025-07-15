@@ -1,0 +1,73 @@
+{% extends "navbar.html" %}
+{% block scripts %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/watchlists.css') }}">
+<script src="{{ url_for('static', filename='js/watchlists.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <aside class="watchlist-sidebar">
+        <h2>Watchlists</h2>
+        <ul id="watchlistList">
+            <li class="watchlist-item active" data-watchlist-id="all">All Watchlists</li>
+            {% for watchlist in watchlists %}
+            <li class="watchlist-item" data-watchlist-id="{{ watchlist.watchlistId }}">
+                <span class="watchlist-name">{{ watchlist.name }}</span>
+                <span class="ellipsis" data-watchlist-id="{{ watchlist.watchlistId }}">&#x22EE;</span>
+                <div class="watchlist-menu" data-menu-id="{{ watchlist.watchlistId }}">
+                    <button class="rename-btn">Rename</button>
+                    <button class="delete-btn">Delete</button>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </aside>
+
+    <main class="watchlist-movies">
+        <h2 id="watchlistTitle">All Watchlists</h2>
+        <div id="moviesContainer">
+            <section class="watchlist-group" data-watchlist-id="all">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Watchlist</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Year</th>
+                            <th>Language</th>
+                            <th>Rating</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% set last_watchlist = None %}
+                        {% for movie in allWatchlistMovies %}
+                        <tr data-watchlist-id="{{ movie.watchlistId }}" data-watchlist-name="{{ movie.watchlistName }}"
+                            data-movie-id="{{ movie.movieId }}" class="movie-row">
+                            <td>{{ movie.watchlistName }}</td>
+                            <td>{{ movie.title }}</td>
+                            <td>{{ movie.description[:100] }}...</td>
+                            <td>{{ movie.releaseYear }}</td>
+                            <td>{{ movie.language }}</td>
+                            <td>{{ movie.averageRating }}</td>
+                            <td>
+                                <button class="remove-movie-btn">
+                                    Remove
+                                </button>
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+                        {% if not allWatchlistMovies %}
+                        <tr>
+                            <td colspan="7" style="text-align:center; color:#888;">No movies found in any watchlist.
+                            </td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </main>
+</div>
+{% endblock %}

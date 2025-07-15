@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Movie Request</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/adminRequest.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/adminNavbar.css') }}">
+    <script src="{{ url_for('static', filename='js/adminNavbar.js') }}" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div class="request-container">
+        <h2>Edit Movie Request</h2>
+        <form action="{{ url_for('updateRequest') }}" method="POST" class="request-form">
+
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" value="{{ requestData.title }}" required>
+
+            <label for="description">Description</label>
+            <textarea id="description" name="description" rows="5" required>{{ requestData.description }}</textarea>
+
+            <label for="releaseYear">Release Year</label>
+            <input type="number" id="releaseYear" name="releaseYear" min="1880" max="2099"
+                value="{{ requestData.releaseYear }}" required>
+
+            <label for="directorInput">Director</label>
+            <input list="directorOptions" id="directorInput" name="directorName" value="{{ requestData.directorName }}"
+                placeholder="Search or add director" required>
+            <datalist id="directorOptions">
+                {% for director in directors %}
+                <option value="{{ director.name }}"></option>
+                {% endfor %}
+            </datalist>
+
+            <label for="languageInput">Language</label>
+            <input list="languageOptions" id="languageInput" name="language" value="{{ requestData.language }}"
+                placeholder="Search or add language" required>
+            <datalist id="languageOptions">
+                {% for lang in languages %}
+                <option value="{{ lang.language }}"></option>
+                {% endfor %}
+            </datalist>
+
+            <label for="genreInput">Genre</label>
+            <input list="genreOptions" id="genreInput" name="genre" value="{{ requestData.genreName }}"
+                placeholder="Search or add genre" required>
+            <datalist id="genreOptions">
+                {% for genre in genres %}
+                <option value="{{ genre.name }}"></option>
+                {% endfor %}
+            </datalist>
+            <input type="hidden" name="requestId" value="{{ requestData.requestId }}">
+            <button type="submit">Update Request</button>
+        </form>
+    </div>
+</body>
+
+</html>

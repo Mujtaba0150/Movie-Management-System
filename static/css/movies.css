@@ -1,0 +1,340 @@
+html {
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #181818;
+    margin: 0;
+}
+
+.latest-movies {
+    color: white;
+    padding: 20px;
+}
+
+.movie-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.movie-card {
+    width: 170px;
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+    transition: transform 0.2s ease;
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+}
+
+.movie-poster {
+    position: relative;
+    width: 100%;
+    height: 140px;
+    align-content: center;
+    overflow: hidden;
+}
+
+.movie-poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.movie-info {
+    display: flex;
+    justify-content: space-around;
+    font-size: 12px;
+    color: #aaa;
+    padding: 5px 0;
+    background-color: #111;
+}
+
+.movie-link {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.movie-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    font-size: 80%;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    padding: 10px;
+    margin: 0.5em 0px 0.5em 0px;
+    text-decoration: none;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+}
+
+.search-bar input {
+    padding: 5px;
+    width: 190px;
+    background-color: #2f2f35;
+
+    border-radius: 4px;
+    border: none;
+}
+
+/* .search-bar button {
+    padding: 6px 10px;
+    margin-left: 7px;
+    border: none;
+    background-color: #2980b9;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+} */
+
+.pagination {
+    text-align: center;
+    margin: 20px;
+}
+
+.pagination a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #2980b9;
+    font-weight: bold;
+}
+
+.pagination span {
+    font-weight: bold;
+    color: white;
+}
+
+.filters {
+    display: flex;
+    flex-direction: row;
+    background-color: #181818;
+    color: white;
+    justify-content: left;
+    padding: 15px 20px;
+    margin: 20px 10% 0px 10%;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.filters form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+}
+
+.filters label {
+    font-weight: bold;
+}
+
+.filters select {
+    padding: 5px;
+    min-width: 150px;
+    max-height: 1.5rem;
+    border-radius: 4px;
+    color: black;
+    border: 1px solid #ccc;
+}
+
+.filters button {
+    padding: 6px 12px;
+    margin-left: 1%;
+    font-size: 0.57em;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.filter {
+    position: relative;
+    margin-right: 30px;
+    cursor: pointer;
+    display: inline-block;
+    user-select: none;
+}
+
+.filter label {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 28px;
+    left: 0;
+    background-color: #181818;
+    border: 1px solid #1e1e1e;
+    border-radius: 4px;
+    padding: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    width: 180px;
+}
+
+.dropdown label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: normal;
+    color: white;
+    cursor: pointer;
+}
+
+.watchlist-btn {
+    padding: 6px 10px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.rate-btn {
+    padding: 6px 10px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.movie-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.movie-overlay {
+    position: fixed;
+    background-color: #1e1e1e;
+    border: 1px solid #444;
+    padding: 15px;
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+    width: 300px;
+}
+
+.movie-overlay h4 {
+    color: #00d1ff;
+    margin: 0 0 8px 0;
+}
+
+.movie-overlay p {
+    font-size: 13px;
+    margin: 6px 0;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.overlay-content {
+    background: #111111;
+    padding: 25px;
+    border-radius: 8px;
+    width: 350px;
+    text-align: center;
+}
+
+.overlay-content h3 {
+    margin-top: 0;
+    color: white;
+}
+
+#watchlistList {
+    list-style: none;
+    padding: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+}
+
+#watchlistList li {
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#watchlistList li:hover {
+    background-color: #f1f1f1;
+}
+
+#ratingButtons button {
+    margin: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#ratingButtons button.selected {
+    background-color: #3498db;
+    color: white;
+    font-weight: bold;
+}
+
+.new-watchlist-form {
+    margin-top: 10px;
+}
+
+.new-watchlist-form input {
+    padding: 6px;
+    margin-right: 5px;
+    background-color: #181818;
+    border: 1px solid #151515;
+    border-radius: 4px;
+    width: 60%;
+}
+
+.new-watchlist-form button {
+    padding: 6px 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.overlay-actions button {
+    margin-top: 15px;
+    padding: 6px 10px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
